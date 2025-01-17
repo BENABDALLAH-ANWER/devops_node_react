@@ -12,7 +12,7 @@ jest.mock("pg", () => {
 const pool = new Pool();
 
 const mockUsers = [
-    { id: 1, first_name: "John", last_name: "Doe", email: "john@example.com", phone: "123456789" },
+    { id: 1, first_name: "yahya", last_name: "ghdemsi", email: "yahya@gmail.com", phone: "123456789" },
     { id: 2, first_name: "Jane", last_name: "Doe", email: "jane@example.com", phone: "987654321" },
 ];
 
