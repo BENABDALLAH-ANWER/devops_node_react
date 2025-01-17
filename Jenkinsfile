@@ -48,7 +48,7 @@ pipeline {
             stage('Push Docker Image') {
             steps {
                  dir('server') {
-                echo 'Pushing Docker image...'
+                 echo 'Pushing Docker image...'
                 script {
                     def branchName = env.GIT_BRANCH.replace('origin/', '')
                     bat "docker build -t devops_node_react_server:${branchName} ."
