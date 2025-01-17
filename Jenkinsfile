@@ -49,12 +49,11 @@ pipeline {
             steps {
                  dir('server') {
                 echo 'Pushing Docker image...'
-                withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     bat '''
-                        docker login -u $DOCKER_USER -p $DOCKER_PASS
+                        docker login -u benabdallah4nwer -p test11DOCKER
                         docker push devops_node_react_server
                     '''
-                }
+                
             }
             }
         }
