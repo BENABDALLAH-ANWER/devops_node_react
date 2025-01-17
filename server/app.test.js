@@ -13,7 +13,7 @@ const pool = new Pool();
 
 const mockUsers = [
     { id: 1, first_name: "yahya", last_name: "ghdemsi", email: "yahya@gmail.com", phone: "123456789" },
-    { id: 2, first_name: "Jane", last_name: "Doe", email: "jane@example.com", phone: "987654321" },
+    { id: 2, first_name: "anwer", last_name: "ben abdallah", email: "anwer@gmail.com", phone: "987654321" },
 ];
 
 describe("Integration Tests for User API", () => {
