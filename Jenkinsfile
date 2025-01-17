@@ -51,10 +51,9 @@ pipeline {
                     script {
                         def branchName = env.GIT_BRANCH.replace('origin/', '')
                         echo "Pushing Docker image for branch: ${branchName}"
-                        withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                            bat "echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin"
+                            bat "echo test11DOCKER | docker login -u benabdallah.anwer.contact@gmail.com --password-stdin"
                             bat "docker push devops_node_react_server:${branchName}"
-                        }
+                        
                     }
                 }
             }
