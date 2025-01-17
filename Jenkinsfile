@@ -45,19 +45,18 @@ pipeline {
  
     }
 
-            stage('Push Docker Image') {
+        stage('Push Docker Image') {
             steps {
-                 dir('server') {
-                 echo 'Pushing Docker image...'
-                script {
-                    def branchName = env.GIT_BRANCH.replace('origin/', '')
-                    bat "docker build -t devops_node_react_server:${branchName} ."
+                dir('server') {
+                    script {
+                        def branchName = env.GIT_BRANCH.replace('origin/', '')
+                        echo "Pushing Docker image for branch: ${branchName}"
                         withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                                    bat "docker login -u $DOCKER_USER -p $DOCKER_PASS" 
-                                    bat "docker push devops_node_react_server:${branchName}" 
+                            bat "echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin"
+                            bat "docker push devops_node_react_server:${branchName}"
+                        }
+                    }
                 }
-                }    
-            }
             }
         }
 }
