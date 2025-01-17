@@ -45,18 +45,7 @@ pipeline {
                     bat """
                         cd server
                         docker build -t ${DOCKER_HUB_USERNAME}/${IMAGE_NAME}:${BRANCH_NAME} -f ./Dockerfile .
-                        @echo off
-:: Check if the script is run as Administrator
-net session >nul 2>&1
-if %errorlevel% neq 0 (
-    echo This script requires Administrator privileges. Please run it as Administrator.
-    pause
-    exit /b
-)
-
-:: Run Docker login with admin privileges
-echo "${DOCKER_HUB_PASSWORD}" | docker login -u ${DOCKER_HUB_USERNAME} --password-stdin
-                        
+                        echo "${DOCKER_HUB_PASSWORD}" | docker login -u ${DOCKER_HUB_USERNAME} --password-stdin
                         docker push ${DOCKER_HUB_USERNAME}/${IMAGE_NAME}:${BRANCH_NAME}
                     """
                 }
