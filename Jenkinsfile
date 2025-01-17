@@ -2,8 +2,8 @@ pipeline {
     agent any
 
         environment {
-        DOCKER_HUB_USERNAME = 'louaisouei'
-        DOCKER_HUB_PASSWORD = 'louai2811'
+        DOCKER_HUB_USERNAME = 'benabdallah4nwer'
+        DOCKER_HUB_PASSWORD = 'Test11DOCKER'
         IMAGE_NAME = "backend-user-api"
         BRANCH_NAME = "release"
     }
