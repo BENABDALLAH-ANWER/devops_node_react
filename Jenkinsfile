@@ -32,14 +32,17 @@ pipeline {
             }
         }
 
-        stage('Build with docker-compose') {
+        stage('Build Docker Image') {
             steps {
+                dir('server') {
                 script {
-                    bat 'docker-compose up --build'
+                    def branchName = env.GIT_BRANCH.replace('origin/', '')
+                    echo "Building Docker image for branch: ${branchName}"
+                    bat "docker build -t devops_node_react_server:${branchName} ."
                 }
             }
-        }
-
-        
+            }
+ 
     }
+}
 }
