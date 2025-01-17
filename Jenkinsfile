@@ -45,17 +45,16 @@ pipeline {
  
     }
 
-        stage('Push Docker Image') {
+            stage('Push Docker Image') {
             steps {
-                dir('server') {
-                    script {
-                        def branchName = env.GIT_BRANCH.replace('origin/', '')
-                        echo "Pushing Docker image for branch: ${branchName}"
-                            bat "echo test11DOCKER | docker login -u benabdallah.anwer.contact@gmail.com --password-stdin"
-                            bat "docker push devops_node_react_server:${branchName}"
-                        
-                    }
-                }
+                 dir('server') {
+                echo 'Pushing Docker image...'
+                    bat '''
+                        docker login -u benabdallah4nwer -p test11DOCKER
+                        docker push devops_node_react_server
+                    '''
+                
+            }
             }
         }
 }
