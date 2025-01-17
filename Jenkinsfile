@@ -1,6 +1,13 @@
 pipeline {
     agent any
 
+        environment {
+        DOCKER_HUB_USERNAME = 'louaisouei'
+        DOCKER_HUB_PASSWORD = 'louai2811'
+        IMAGE_NAME = "backend-user-api"
+        BRANCH_NAME = "release"
+    }
+
     stages {
         stage('Build') {
             steps {
@@ -32,30 +39,30 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build & Push Image') {
             steps {
-                dir('server') {
                 script {
-                    def branchName = env.GIT_BRANCH.replace('origin/', '')
-                    echo "Building Docker image for branch: ${branchName}"
-                    bat "docker build -t devops_node_react_server:${branchName} ."
+                    bat """
+                        cd server
+                        docker build -t ${DOCKER_HUB_USERNAME}/${IMAGE_NAME}:${BRANCH_NAME} -f ./Dockerfile .
+                        echo "${DOCKER_HUB_PASSWORD}" | docker login -u ${DOCKER_HUB_USERNAME} --password-stdin
+                        docker push ${DOCKER_HUB_USERNAME}/${IMAGE_NAME}:${BRANCH_NAME}
+                    """
                 }
             }
-            }
- 
-    }
+        }
 
-            stage('Push Docker Image') {
+        stage('Deploy Application') {
             steps {
-                 dir('server') {
-                echo 'Pushing Docker image...'
-                    bat '''
-                        docker login -u benabdallah4nwer -p test11DOCKER
-                        docker push devops_node_react_server
-                    '''
-                
-            }
+                script {
+                    bat """
+                        docker pull ${DOCKER_HUB_USERNAME}/${IMAGE_NAME}:${BRANCH_NAME}
+                        docker-compose up --build
+                    """
+                }
             }
         }
+
+
 }
 }
