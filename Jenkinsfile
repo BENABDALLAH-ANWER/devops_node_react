@@ -4,23 +4,31 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bat 'npm install'
+                 dir('server') {
+                    bat 'npm install'
+                }
             }
         }
         stage('Test') {
             steps {
+            dir('server') {
                 bat 'npm test'
+                 }
             }
         }
 
         stage('SonarQube analysis') {
             steps {
-                script {
+
+            dir('server') {
+                  script {
                     def scannerHome = tool name: 'sonar'
                     withSonarQubeEnv('sonarQube') {
                         bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=crud_user"
                     }
                 }
+                 }
+              
             }
         }
 
