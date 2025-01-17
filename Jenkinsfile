@@ -32,6 +32,14 @@ pipeline {
             }
         }
 
+        stage('Build with docker-compose') {
+            steps {
+                script {
+                    bat 'docker-compose up --build'
+                }
+            }
+        }
+
         
     }
 }
