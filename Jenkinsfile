@@ -44,5 +44,19 @@ pipeline {
             }
  
     }
+
+            stage('Push Docker Image') {
+            steps {
+                 dir('server') {
+                echo 'Pushing Docker image...'
+                withCredentials([usernamePassword(credentialsId: 'docker_hub_credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    bat '''
+                        docker login -u $DOCKER_USER -p $DOCKER_PASS
+                        docker push devops_node_react_server
+                    '''
+                }
+            }
+            }
+        }
 }
 }
