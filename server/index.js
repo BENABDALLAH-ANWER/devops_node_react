@@ -1,4 +1,5 @@
 const express = require("express");
+const pool = require("./keys");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const { getAllUsers, createUser, updateUser, deleteUser } = require("./crud");
@@ -6,6 +7,28 @@ const { getAllUsers, createUser, updateUser, deleteUser } = require("./crud");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+const createUsersTable = async () => {
+  const query = `
+    DROP TABLE IF EXISTS transfers;
+    CREATE TABLE transfers (
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(100) NOT NULL,
+      amount NUMERIC(10, 2) NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+  `;
+
+  try {
+    await pool.query(query);
+    console.log("Table 'transfers' supprimée et recréée avec succès.");
+  } catch (err) {
+    console.error("Erreur lors de la recréation de la table 'transfers':", err);
+  }
+};
+
+
+createUsersTable();
 
 app.get("/", (req, res) => {
   res.send("User CRUD API");
