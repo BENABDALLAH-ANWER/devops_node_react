@@ -16,7 +16,8 @@ const MainComponent = () => {
   const fetchUsers = useCallback(async () => {
     try {
       const response = await axios.get("/api/users/all");
-      setUsers(response.data);
+      console.log("ugbgygybu",response.data.data)
+      setUsers(response.data.data);
     } catch (err) {
       console.error("Error fetching users:", err);
     }
