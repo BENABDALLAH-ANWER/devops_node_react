@@ -1,43 +1,12 @@
 pipeline {
     agent any
 
-        environment {
-        DOCKER_HUB_USERNAME = 'louaisouei'
-        DOCKER_HUB_PASSWORD = 'louai2811'
-        IMAGE_NAME = "backend-user-api-crud"
-        BRANCH_NAME = "release"
-    }
+
 
     stages {
-        stage('Build') {
-            steps {
-                 dir('server') {
-                    bat 'npm install'
-                }
-            }
-        }
-        stage('Test') {
-            steps {
-            dir('server') {
-                bat 'npm test'
-                 }
-            }
-        }
+ 
 
-        stage('SonarQube analysis') {
-            steps {
 
-            dir('server') {
-                  script {
-                    def scannerHome = tool name: 'sonar'
-                    withSonarQubeEnv('sonarQube') {
-                        bat "${scannerHome}\\bin\\sonar-scanner -Dsonar.projectKey=crud_user"
-                    }
-                }
-                 }
-              
-            }
-        }
 
         stage('Build & Push Image') {
             steps {
