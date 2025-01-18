@@ -1,5 +1,4 @@
-const { Pool } = require("pg");
-const pool = new Pool();
+const pool = require("./keys");
 
 async function getAllUsers() {
     const result = await pool.query("SELECT * FROM users ORDER BY created_at DESC");
