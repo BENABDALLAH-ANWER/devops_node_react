@@ -10,20 +10,22 @@ app.use(bodyParser.json());
 
 const createUsersTable = async () => {
   const query = `
-    DROP TABLE IF EXISTS transfers;
-    CREATE TABLE transfers (
-      id SERIAL PRIMARY KEY,
-      name VARCHAR(100) NOT NULL,
-      amount NUMERIC(10, 2) NOT NULL,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    DROP TABLE IF EXISTS users;
+    CREATE TABLE users (
+        id SERIAL PRIMARY KEY,
+        first_name VARCHAR(100),
+        last_name VARCHAR(100),
+        email VARCHAR(150) UNIQUE NOT NULL,
+        phone VARCHAR(20),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `;
 
   try {
     await pool.query(query);
-    console.log("Table 'transfers' supprimée et recréée avec succès.");
+    console.log("Table 'users' supprimée et recréée avec succès.");
   } catch (err) {
-    console.error("Erreur lors de la recréation de la table 'transfers':", err);
+    console.error("Erreur lors de la recréation de la table 'users':", err);
   }
 };
 
