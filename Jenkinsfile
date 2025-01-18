@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                  dir('server') {
-                    bat 'npm install'
+                    bat 'npm install' 
                 }
             }
         }
