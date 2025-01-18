@@ -42,7 +42,7 @@ pipeline {
         stage('Build & Push Image') {
             steps {
                 script {
-                    sh """
+                    bat """
                         cd server
                         docker build -t ${DOCKER_HUB_USERNAME}/${IMAGE_NAME}:${BRANCH_NAME} -f ./Dockerfile .
                         echo "${DOCKER_HUB_PASSWORD}" | docker login -u ${DOCKER_HUB_USERNAME} --password-stdin
